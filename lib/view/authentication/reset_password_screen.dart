@@ -6,69 +6,91 @@ import 'package:hackathon_isra/widgets/custom_button.dart' show CustomButton;
 import 'package:hackathon_isra/widgets/custom_textfield.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
+  const ResetPasswordScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
-    var responsive = Responsiveness.init(context);
+    Responsiveness.init(context);
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: ColorConstraint.backgroundColor,
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Icon(Icons.arrow_back),
-        ),
-      ),
+      appBar: _buildAppBar(context),
       backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Reset Password',
-              style: TextStyle(
-                fontSize: Responsiveness.text(24),
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            SizedBox(height: Responsiveness.height(3)),
-            Text(
-              'Masukan Email/ No. Hp akun untuk mereset kata sandi Anda  ',
-              style: TextStyle(
-                color: Color(0xff838589),
-                fontSize: Responsiveness.text(14),
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-
+            _buildHeaderText(),
             SizedBox(height: Responsiveness.height(6)),
-            Text(
-              'Email/Phone',
-              style: TextStyle(
-                fontSize: Responsiveness.text(14),
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            SizedBox(height: Responsiveness.height(2)),
-
-            CustomTextField(hintText: 'Masukan Alamat Email/ No Telepon Anda'),
-
+            _buildEmailField(),
             SizedBox(height: Responsiveness.height(8)),
-
-            CustomButton(
-              isOutlined: false,
-              text: 'Reset',
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => VerificationScreen()),
-                );
-              },
-            ),
+            _buildResetButton(context),
           ],
         ),
       ),
+    );
+  }
+
+  // ------------------- WIDGET METHODS -------------------
+
+  AppBar _buildAppBar(BuildContext context) {
+    return AppBar(
+      backgroundColor: ColorConstraint.backgroundColor,
+      leading: GestureDetector(
+        onTap: () => Navigator.pop(context),
+        child: const Icon(Icons.arrow_back),
+      ),
+    );
+  }
+
+  Widget _buildHeaderText() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Reset Password',
+          style: TextStyle(
+            fontSize: Responsiveness.text(24),
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        SizedBox(height: Responsiveness.height(3)),
+        Text(
+          'Masukan Email/ No. Hp akun untuk mereset kata sandi Anda',
+          style: TextStyle(
+            color: const Color(0xff838589),
+            fontSize: Responsiveness.text(14),
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildEmailField() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: const [
+        Text(
+          'Email/Phone',
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+        ),
+        SizedBox(height: 8),
+        CustomTextField(hintText: 'Masukan Alamat Email/ No Telepon Anda'),
+      ],
+    );
+  }
+
+  Widget _buildResetButton(BuildContext context) {
+    return CustomButton(
+      isOutlined: false,
+      text: 'Reset',
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => VerificationScreen()),
+        );
+      },
     );
   }
 }

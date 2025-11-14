@@ -11,69 +11,87 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var responsive = Responsiveness.init(context);
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: ColorConstraint.backgroundColor,
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Icon(Icons.arrow_back),
-        ),
-      ),
+    Responsiveness.init(context);
 
+    return Scaffold(
+      appBar: _buildAppBar(context),
       backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Register Account',
-              style: TextStyle(
-                fontSize: Responsiveness.text(24),
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            SizedBox(height: Responsiveness.height(3)),
-            Text(
-              'Masukan Email/ No. Hp untuk mendaftar ',
-              style: TextStyle(
-                color: Color(0xff838589),
-                fontSize: Responsiveness.text(14),
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-
+            _buildHeaderText(),
             SizedBox(height: Responsiveness.height(6)),
-            Text(
-              'Email/Phone',
-              style: TextStyle(
-                fontSize: Responsiveness.text(14),
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            SizedBox(height: Responsiveness.height(2)),
-            CustomTextField(hintText: 'Masukan Alamat Email/ No Telepon Anda'),
-
+            _buildEmailField(),
             SizedBox(height: Responsiveness.height(8)),
-
-            CustomButton(
-              text: 'Continue',
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => VerificationRegisterScreen(),
-                  ),
-                );
-              },
-              isOutlined: false,
-            ),
+            _buildContinueButton(context),
           ],
         ),
       ),
+    );
+  }
+
+  // ------------------- WIDGET METHODS -------------------
+
+  AppBar _buildAppBar(BuildContext context) {
+    return AppBar(
+      backgroundColor: ColorConstraint.backgroundColor,
+      leading: GestureDetector(
+        onTap: () => Navigator.pop(context),
+        child: const Icon(Icons.arrow_back),
+      ),
+    );
+  }
+
+  Widget _buildHeaderText() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Register Account',
+          style: TextStyle(
+            fontSize: Responsiveness.text(24),
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        SizedBox(height: Responsiveness.height(3)),
+        Text(
+          'Masukan Email/ No. Hp untuk mendaftar',
+          style: TextStyle(
+            color: const Color(0xff838589),
+            fontSize: Responsiveness.text(14),
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildEmailField() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: const [
+        Text(
+          'Email/Phone',
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+        ),
+        SizedBox(height: 8),
+        CustomTextField(hintText: 'Masukan Alamat Email/ No Telepon Anda'),
+      ],
+    );
+  }
+
+  Widget _buildContinueButton(BuildContext context) {
+    return CustomButton(
+      text: 'Continue',
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => VerificationRegisterScreen()),
+        );
+      },
+      isOutlined: false,
     );
   }
 }

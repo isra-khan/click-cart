@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hackathon_isra/constant/colorconstraint.dart';
-import 'package:hackathon_isra/constant/font_sizes.dart';
 import 'package:hackathon_isra/constant/responsiveness.dart';
 import 'package:hackathon_isra/models/category_model.dart';
+import 'package:hackathon_isra/models/product_model.dart';
 import 'package:hackathon_isra/view/home_screen/product_detail_page.dart';
 import 'package:hackathon_isra/widgets/custom_product_card.dart';
 import 'package:hackathon_isra/widgets/custom_searchbar.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
-
-import 'package:hackathon_isra/models/product_model.dart';
-import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -118,11 +114,14 @@ class HomeScreen extends StatelessWidget {
     ),
   ];
 
-  // Sample banner images for products section
   final List<String> sampleBanners = [
     'assets/images/banner3.png',
     'assets/images/banner4.png',
   ];
+
+  // ---------------------------------------------------------------------------
+  // --------------------------  BUILD METHOD  ---------------------------------
+  // ---------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -130,178 +129,140 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: ColorConstraint.backgroundColor,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        actionsPadding: EdgeInsets.only(right: 16),
-        centerTitle: true,
-        backgroundColor: ColorConstraint.backgroundColor,
-        title: Text(
-          'Mega Mall',
-          style: TextStyle(
-            color: ColorConstraint.buttonColor,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        actions: [
-          Icon(Icons.notifications_outlined),
-          Icon(Icons.shopping_cart_outlined),
-        ],
-      ),
+      appBar: _buildAppBar(),
       body: ListView(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(Responsiveness.width(4)),
         children: [
-          // --- Search Bar ---
-          CustomSearchBar(controller: controller, onChanged: (val) {}),
-          const SizedBox(height: 20),
-
-          // --- Carousel Slider ---
-          CarouselSlider(
-            options: CarouselOptions(
-              height: 200,
-              autoPlay: true,
-              autoPlayInterval: const Duration(seconds: 3),
-              autoPlayAnimationDuration: const Duration(milliseconds: 800),
-              enlargeCenterPage: true,
-              viewportFraction: 0.8,
-            ),
-            items: imgList.map((item) {
-              return ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Image.asset(
-                  item,
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                ),
-              );
-            }).toList(),
+          _buildSearchBar(),
+          SizedBox(height: Responsiveness.height(2.5)),
+          _buildCarousel(),
+          SizedBox(height: Responsiveness.height(2.5)),
+          _buildCategorySection(),
+          SizedBox(height: Responsiveness.height(2.5)),
+          _buildSection(
+            context,
+            'Featured Products',
+            sampleProducts.sublist(0, 2),
           ),
-          const SizedBox(height: 20),
-
-          // --- Categories ---
-          Text(
-            'Categories',
-            style: TextStyle(
-              color: ColorConstraint.primaryColor,
-              fontWeight: FontWeight.w500,
-              fontSize: Responsiveness.text(16),
-            ),
-          ),
-          const SizedBox(height: 8),
-          SizedBox(
-            height: 120,
-            child: ListView.builder(
-              itemCount: sampleCategories.length,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                final category = sampleCategories[index];
-                return Padding(
-                  padding: const EdgeInsets.only(right: 12),
-                  child: Column(
-                    children: [
-                      Container(
-                        height: 80,
-                        width: 80,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(14),
-                          color: category.color,
-                        ),
-                        child: Image.asset(category.imageUrl),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        category.title,
-                        style: TextStyle(
-                          fontSize: Responsiveness.text(14),
-                          fontWeight: FontWeight.w400,
-                          color: Colors.amber,
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-          const SizedBox(height: 20),
-
-          // --- Sections ---
-          SectionWidget(
-            title: 'Featured Products',
-            products: sampleProducts.sublist(0, 2),
-            onFavoriteToggle: () {},
-          ),
-
-          SectionWidget(
-            title: 'Best Seller',
-            products: sampleProducts.sublist(2, 4),
-            onFavoriteToggle: () {},
-          ),
-
-          // Banner after Best Seller
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Image.asset(
-              sampleBanners[0],
-              height: 150,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
-          ),
-
-          SectionWidget(
-            title: 'New Arrival',
-            products: sampleProducts.sublist(4, 6),
-            onFavoriteToggle: () {},
-          ),
-
-          // Banner after New Arrival
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Image.asset(
-              sampleBanners[1],
-              height: 120,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
-          ),
-
-          SectionWidget(
-            title: 'Top Rated',
-            products: sampleProducts.sublist(2, 4),
-            onFavoriteToggle: () {},
-          ),
-
-          SectionWidget(
-            title: 'Special Offer',
-            products: sampleProducts.sublist(2, 4),
-            onFavoriteToggle: () {},
-          ),
-
-          const SizedBox(height: 20),
-
-          // --- News Section ---
-          NewsWidget(),
+          _buildSection(context, 'Best Seller', sampleProducts.sublist(2, 4)),
+          _buildBanner(sampleBanners[0], Responsiveness.height(25)),
+          _buildSection(context, 'New Arrival', sampleProducts.sublist(4, 6)),
+          _buildBanner(sampleBanners[1], Responsiveness.height(22.5)),
+          _buildSection(context, 'Top Rated', sampleProducts.sublist(2, 4)),
+          _buildSection(context, 'Special Offer', sampleProducts.sublist(2, 4)),
+          SizedBox(height: Responsiveness.height(2.5)),
+          _buildNewsWidget(),
         ],
       ),
     );
   }
-}
 
-// --- Section Widget with title + products row ---
-class SectionWidget extends StatelessWidget {
-  final String title;
-  final List<ProductModel> products;
-  final VoidCallback? onFavoriteToggle;
+  // ---------------------------------------------------------------------------
+  // --------------------------  WIDGET METHODS  -------------------------------
+  // ---------------------------------------------------------------------------
 
-  const SectionWidget({
-    super.key,
-    required this.title,
-    required this.products,
-    this.onFavoriteToggle,
-  });
+  AppBar _buildAppBar() {
+    return AppBar(
+      automaticallyImplyLeading: false,
+      actionsPadding: EdgeInsets.only(right: Responsiveness.width(4)),
+      centerTitle: true,
+      backgroundColor: ColorConstraint.backgroundColor,
+      title: Text(
+        'Mega Mall',
+        style: TextStyle(
+          color: ColorConstraint.buttonColor,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      actions: const [
+        Icon(Icons.notifications_outlined),
+        Icon(Icons.shopping_cart_outlined),
+      ],
+    );
+  }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildSearchBar() {
+    return CustomSearchBar(controller: controller, onChanged: (val) {});
+  }
+
+  Widget _buildCarousel() {
+    return CarouselSlider(
+      options: CarouselOptions(
+        height: Responsiveness.height(25),
+        autoPlay: true,
+        autoPlayInterval: const Duration(seconds: 3),
+        autoPlayAnimationDuration: const Duration(milliseconds: 800),
+        enlargeCenterPage: true,
+        viewportFraction: 0.8,
+      ),
+      items: imgList.map((item) {
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(Responsiveness.width(3)),
+          child: Image.asset(item, fit: BoxFit.cover, width: double.infinity),
+        );
+      }).toList(),
+    );
+  }
+
+  Widget _buildCategorySection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Categories',
+          style: TextStyle(
+            color: ColorConstraint.primaryColor,
+            fontWeight: FontWeight.w500,
+            fontSize: Responsiveness.text(16),
+          ),
+        ),
+        SizedBox(height: Responsiveness.height(1)),
+        SizedBox(
+          height: Responsiveness.height(15),
+          child: ListView.builder(
+            itemCount: sampleCategories.length,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              final category = sampleCategories[index];
+              return Padding(
+                padding: EdgeInsets.only(right: Responsiveness.width(3)),
+                child: Column(
+                  children: [
+                    Container(
+                      height: Responsiveness.width(20),
+                      width: Responsiveness.width(20),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                          Responsiveness.width(3.5),
+                        ),
+                        color: category.color,
+                      ),
+                      child: Image.asset(category.imageUrl),
+                    ),
+                    SizedBox(height: Responsiveness.height(1)),
+                    Text(
+                      category.title,
+                      style: TextStyle(
+                        fontSize: Responsiveness.text(14),
+                        fontWeight: FontWeight.w400,
+                        color: Colors.amber,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSection(
+    BuildContext context,
+    String title,
+    List<ProductModel> products,
+  ) {
     return Column(
       children: [
         Row(
@@ -325,7 +286,7 @@ class SectionWidget extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 8),
+        SizedBox(height: Responsiveness.height(1)),
         GestureDetector(
           onTap: () {
             Navigator.push(
@@ -333,60 +294,36 @@ class SectionWidget extends StatelessWidget {
               MaterialPageRoute(builder: (context) => ProductDetailPage()),
             );
           },
-          child: ProductRowWidget(
-            products: products,
-            onFavoriteToggle: onFavoriteToggle,
+          child: Row(
+            children: [
+              Expanded(child: CustomProductCard(product: products[0])),
+              SizedBox(width: Responsiveness.width(2)),
+              Expanded(
+                child: CustomProductCard(
+                  product: products.length > 1 ? products[1] : products[0],
+                ),
+              ),
+            ],
           ),
         ),
-        const SizedBox(height: 16),
+        SizedBox(height: Responsiveness.height(2)),
       ],
     );
   }
-}
 
-// --- Product Row Widget (2 products per row) ---
-class ProductRowWidget extends StatelessWidget {
-  final List<ProductModel> products;
-  final VoidCallback? onFavoriteToggle;
-
-  const ProductRowWidget({
-    super.key,
-    required this.products,
-    this.onFavoriteToggle,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    if (products.isEmpty) return const SizedBox();
-    return Row(
-      children: [
-        Expanded(
-          child: CustomProductCard(
-            product: products[0],
-            onFavoriteToggle: onFavoriteToggle,
-          ),
-        ),
-        const SizedBox(width: 8),
-        if (products.length > 1)
-          Expanded(
-            child: CustomProductCard(
-              product: products[1],
-              onFavoriteToggle: onFavoriteToggle,
-            ),
-          )
-        else
-          Expanded(child: Container()),
-      ],
+  Widget _buildBanner(String image, double height) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: Responsiveness.height(1)),
+      child: Image.asset(
+        image,
+        height: height,
+        width: double.infinity,
+        fit: BoxFit.cover,
+      ),
     );
   }
-}
 
-// --- News Widget (demo) ---
-class NewsWidget extends StatelessWidget {
-  const NewsWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildNewsWidget() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -398,7 +335,7 @@ class NewsWidget extends StatelessWidget {
             fontSize: Responsiveness.text(16),
           ),
         ),
-        SizedBox(height: 20),
+        SizedBox(height: Responsiveness.height(2.5)),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -406,168 +343,174 @@ class NewsWidget extends StatelessWidget {
               flex: 2,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text(
                     'Philosophy That Addresses Topics Such As Goodness',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: Responsiveness.text(14),
+                    ),
                   ),
-                  SizedBox(height: 6),
-                  Text('Agar tetap kinclong, bodi motor ten...'),
-                  SizedBox(height: 6),
+                  SizedBox(height: Responsiveness.height(0.75)),
+                  Text(
+                    'Agar tetap kinclong, bodi motor ten...',
+                    style: TextStyle(fontSize: Responsiveness.text(12)),
+                  ),
+                  SizedBox(height: Responsiveness.height(0.75)),
                   Text(
                     '13 Jan 2021',
-                    style: TextStyle(color: Colors.grey, fontSize: 12),
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: Responsiveness.text(12),
+                    ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(width: 8),
-            // Image
+            SizedBox(width: Responsiveness.width(2)),
             Expanded(
               flex: 1,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(
-                  20,
-                ), // adjust radius as needed
+                borderRadius: BorderRadius.circular(Responsiveness.width(5)),
                 child: Image.asset(
                   'assets/images/news.png',
                   fit: BoxFit.cover,
-                  height: 80,
-                  width: 30,
+                  height: Responsiveness.height(10),
+                  width: Responsiveness.width(7.5),
                 ),
               ),
             ),
           ],
         ),
-        const Divider(height: 20),
+        Divider(height: Responsiveness.height(2.5)),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Text
             Expanded(
               flex: 2,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text(
                     'Philosophy That Addresses Topics Such As Goodness',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: Responsiveness.text(14),
+                    ),
                   ),
-                  SizedBox(height: 6),
-                  Text('Agar tetap kinclong, bodi motor ten...'),
-                  SizedBox(height: 6),
+                  SizedBox(height: Responsiveness.height(0.75)),
+                  Text(
+                    'Agar tetap kinclong, bodi motor ten...',
+                    style: TextStyle(fontSize: Responsiveness.text(12)),
+                  ),
+                  SizedBox(height: Responsiveness.height(0.75)),
                   Text(
                     '13 Jan 2021',
-                    style: TextStyle(color: Colors.grey, fontSize: 12),
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: Responsiveness.text(12),
+                    ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(width: 8),
-            // Image
+            SizedBox(width: Responsiveness.width(2)),
             Expanded(
               flex: 1,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(
-                  20,
-                ), // adjust radius as needed
+                borderRadius: BorderRadius.circular(Responsiveness.width(5)),
                 child: Image.asset(
                   'assets/images/news.png',
                   fit: BoxFit.cover,
-                  height: 80,
-                  width: 30,
+                  height: Responsiveness.height(10),
+                  width: Responsiveness.width(7.5),
                 ),
               ),
             ),
           ],
         ),
-
-        const Divider(height: 20),
+        Divider(height: Responsiveness.height(2.5)),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Text
             Expanded(
               flex: 2,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text(
                     'Philosophy That Addresses Topics Such As Goodness',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: Responsiveness.text(14),
+                    ),
                   ),
-                  SizedBox(height: 6),
-                  Text('Agar tetap kinclong, bodi motor ten...'),
-                  SizedBox(height: 6),
+                  SizedBox(height: Responsiveness.height(0.75)),
+                  Text(
+                    'Agar tetap kinclong, bodi motor ten...',
+                    style: TextStyle(fontSize: Responsiveness.text(12)),
+                  ),
+                  SizedBox(height: Responsiveness.height(0.75)),
                   Text(
                     '13 Jan 2021',
-                    style: TextStyle(color: Colors.grey, fontSize: 12),
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: Responsiveness.text(12),
+                    ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(width: 8),
-            // Image
+            SizedBox(width: Responsiveness.width(2)),
             Expanded(
               flex: 1,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(
-                  20,
-                ), // adjust radius as needed
+                borderRadius: BorderRadius.circular(Responsiveness.width(5)),
                 child: Image.asset(
                   'assets/images/news.png',
                   fit: BoxFit.cover,
-                  height: 80,
-                  width: 30,
+                  height: Responsiveness.height(10),
+                  width: Responsiveness.width(7.5),
                 ),
               ),
             ),
           ],
         ),
-
-        const Divider(height: 20),
+        Divider(height: Responsiveness.height(2.5)),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Text
             Expanded(
               flex: 2,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text(
                     'Philosophy That Addresses Topics Such As Goodness',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: Responsiveness.text(14),
+                    ),
                   ),
-                  SizedBox(height: 6),
-                  Text('Agar tetap kinclong, bodi motor ten...'),
-                  SizedBox(height: 6),
+                  SizedBox(height: Responsiveness.height(0.75)),
+                  Text(
+                    'Agar tetap kinclong, bodi motor ten...',
+                    style: TextStyle(fontSize: Responsiveness.text(12)),
+                  ),
+                  SizedBox(height: Responsiveness.height(0.75)),
                   Text(
                     '13 Jan 2021',
-                    style: TextStyle(color: Colors.grey, fontSize: 12),
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: Responsiveness.text(12),
+                    ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(width: 8),
-            // Image
-            Expanded(
-              flex: 1,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(
-                  20,
-                ), // adjust radius as needed
-                child: Image.asset(
-                  'assets/images/news.png',
-                  fit: BoxFit.cover,
-                  height: 80,
-                  width: 30,
-                ),
-              ),
-            ),
+            SizedBox(width: Responsiveness.width(2)),
           ],
         ),
-        const Divider(height: 20),
       ],
     );
   }
