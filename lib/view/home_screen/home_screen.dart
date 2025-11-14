@@ -198,7 +198,7 @@ class HomeScreen extends StatelessWidget {
       centerTitle: true,
       backgroundColor: ColorConstraint.backgroundColor,
       title: Text(
-        'Mega Mall',
+        'Click Cart',
         style: TextStyle(
           color: ColorConstraint.buttonColor,
           fontWeight: FontWeight.w500,

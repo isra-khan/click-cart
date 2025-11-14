@@ -57,7 +57,7 @@ class ProfilePasswordScreen extends StatelessWidget {
         ),
         SizedBox(height: Responsiveness.height(3)),
         Text(
-          'Lengkapi data terakhir berikut untuk masuk ke aplikasi Mega Mall',
+          'Lengkapi data terakhir berikut untuk masuk ke aplikasi Click Cart',
           style: TextStyle(
             color: const Color(0xff838589),
             fontSize: Responsiveness.text(14),

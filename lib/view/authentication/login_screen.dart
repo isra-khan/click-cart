@@ -52,7 +52,7 @@ class LoginScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Welcome back to\nMega Mall',
+          'Welcome back to\nClick Cart',
           style: TextStyle(
             fontSize: Responsiveness.text(24),
             fontWeight: FontWeight.w700,
