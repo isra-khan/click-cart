@@ -3,14 +3,14 @@ import 'package:hackathon_isra/constant/colorconstraint.dart';
 import 'package:hackathon_isra/constant/responsiveness.dart';
 import 'package:hackathon_isra/models/product_model.dart';
 import 'package:hackathon_isra/models/shop_model.dart';
-import 'package:hackathon_isra/routes/app_routes.dart';
+import 'package:hackathon_isra/routes/routes.dart';
 import 'package:hackathon_isra/widgets/custom_product_card.dart';
 
-class ShopInfoPage extends StatelessWidget {
+class ShopInfoScreen extends StatelessWidget {
   final ShopModel shop;
   final List<ProductModel> products;
 
-  const ShopInfoPage({super.key, required this.shop, required this.products});
+  const ShopInfoScreen({super.key, required this.shop, required this.products});
 
   @override
   Widget build(BuildContext context) {

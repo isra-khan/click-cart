@@ -3,15 +3,12 @@ import 'package:hackathon_isra/constant/colorconstraint.dart';
 import 'package:hackathon_isra/constant/responsiveness.dart';
 import 'package:hackathon_isra/models/product_model.dart';
 import 'package:hackathon_isra/models/shop_model.dart';
-import 'package:hackathon_isra/routes/app_routes.dart';
+import 'package:hackathon_isra/routes/routes.dart';
 
-class ProductDetailPage extends StatelessWidget {
+class ProductDetailScreen extends StatelessWidget {
   final ProductModel product;
 
-  const ProductDetailPage({
-    super.key,
-    required this.product,
-  });
+  const ProductDetailScreen({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -106,10 +103,7 @@ class ProductDetailPage extends StatelessWidget {
           width: double.infinity,
           height: Responsiveness.height(50),
           color: const Color(0xFFE8F0FE),
-          child: Image.asset(
-            product.imageUrl,
-            fit: BoxFit.contain,
-          ),
+          child: Image.asset(product.imageUrl, fit: BoxFit.contain),
         ),
         Positioned(
           bottom: Responsiveness.height(2),
@@ -263,10 +257,7 @@ class ProductDetailPage extends StatelessWidget {
         Navigator.pushNamed(
           context,
           AppRoutes.shopInfo,
-          arguments: {
-            'shop': shop,
-            'products': shopProducts,
-          },
+          arguments: {'shop': shop, 'products': shopProducts},
         );
       },
       child: Container(
@@ -275,10 +266,7 @@ class ProductDetailPage extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(Responsiveness.width(3)),
-          border: Border.all(
-            color: Colors.grey.shade200,
-            width: 1,
-          ),
+          border: Border.all(color: Colors.grey.shade200, width: 1),
         ),
         child: Row(
           children: [
@@ -448,10 +436,7 @@ class ProductDetailPage extends StatelessWidget {
             child: OutlinedButton(
               onPressed: () {},
               style: OutlinedButton.styleFrom(
-                side: BorderSide(
-                  color: Colors.grey.shade300,
-                  width: 1,
-                ),
+                side: BorderSide(color: Colors.grey.shade300, width: 1),
                 padding: EdgeInsets.symmetric(
                   horizontal: Responsiveness.width(8),
                   vertical: Responsiveness.height(1.5),

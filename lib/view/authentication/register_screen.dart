@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hackathon_isra/constant/colorconstraint.dart';
 import 'package:hackathon_isra/constant/responsiveness.dart';
-import 'package:hackathon_isra/routes/app_routes.dart';
 import 'package:hackathon_isra/widgets/custom_button.dart' show CustomButton;
 import 'package:hackathon_isra/widgets/custom_textfield.dart';
+import 'package:hackathon_isra/routes/routes.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});

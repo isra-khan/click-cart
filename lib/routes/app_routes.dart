@@ -14,64 +14,50 @@ import 'package:hackathon_isra/view/home_screen/shop_info_page.dart';
 import 'package:hackathon_isra/view/main_navigation.dart';
 import 'package:hackathon_isra/view/order/order_screen.dart';
 import 'package:hackathon_isra/view/wishlist/wishlist_screen.dart';
+import 'package:hackathon_isra/routes/routes.dart';
 
-class AppRoutes {
-  // Route names
-  static const String login = '/login';
-  static const String register = '/register';
-  static const String resetPassword = '/reset-password';
-  static const String verification = '/verification';
-  static const String verificationRegister = '/verification-register';
-  static const String updatePassword = '/update-password';
-  static const String profilePassword = '/profile-password';
-  static const String mainNavigation = '/main-navigation';
-  static const String home = '/home';
-  static const String wishlist = '/wishlist';
-  static const String order = '/order';
-  static const String productDetail = '/product-detail';
-  static const String shopInfo = '/shop-info';
-
+class AppPages {
   // Route generator
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
 
     switch (settings.name) {
-      case login:
+      case AppRoutes.login:
         return MaterialPageRoute(builder: (_) => const LoginScreen());
 
-      case register:
+      case AppRoutes.register:
         return MaterialPageRoute(builder: (_) => const RegisterScreen());
 
-      case resetPassword:
+      case AppRoutes.resetPassword:
         return MaterialPageRoute(builder: (_) => const ResetPasswordScreen());
 
-      case verification:
+      case AppRoutes.verification:
         return MaterialPageRoute(builder: (_) => const VerificationScreen());
 
-      case verificationRegister:
+      case AppRoutes.verificationRegister:
         return MaterialPageRoute(
           builder: (_) => const VerificationRegisterScreen(),
         );
 
-      case updatePassword:
+      case AppRoutes.updatePassword:
         return MaterialPageRoute(builder: (_) => const UpdatePasswordScreen());
 
-      case profilePassword:
+      case AppRoutes.profilePassword:
         return MaterialPageRoute(builder: (_) => const ProfilePasswordScreen());
 
-      case mainNavigation:
+      case AppRoutes.mainNavigation:
         return MaterialPageRoute(builder: (_) => const MainNavigation());
 
-      case home:
+      case AppRoutes.home:
         return MaterialPageRoute(builder: (_) => HomeScreen());
 
-      case wishlist:
+      case AppRoutes.wishlist:
         return MaterialPageRoute(builder: (_) => const WishlistScreen());
 
-      case order:
+      case AppRoutes.order:
         return MaterialPageRoute(builder: (_) => const OrderScreen());
 
-      case productDetail:
+      case AppRoutes.productDetail:
         return MaterialPageRoute(
           builder: (_) => args is ProductModel
               ? ProductDetailScreen(product: args)
@@ -86,7 +72,7 @@ class AppRoutes {
                 ),
         );
 
-      case shopInfo:
+      case AppRoutes.shopInfo:
         return MaterialPageRoute(
           builder: (_) {
             if (args is Map<String, dynamic>) {

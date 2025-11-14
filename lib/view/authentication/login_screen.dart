@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hackathon_isra/constant/colorconstraint.dart';
 import 'package:hackathon_isra/constant/responsiveness.dart';
-import 'package:hackathon_isra/routes/app_routes.dart';
+import 'package:hackathon_isra/routes/routes.dart';
 import 'package:hackathon_isra/widgets/custom_button.dart';
 import 'package:hackathon_isra/widgets/custom_textfield.dart';
 

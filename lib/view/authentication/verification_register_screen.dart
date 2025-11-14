@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:hackathon_isra/constant/colorconstraint.dart';
 import 'package:hackathon_isra/constant/responsiveness.dart';
-import 'package:hackathon_isra/routes/app_routes.dart';
 import 'package:hackathon_isra/widgets/custom_button.dart';
+import 'package:hackathon_isra/routes/routes.dart';
 
 class VerificationRegisterScreen extends StatelessWidget {
   const VerificationRegisterScreen({super.key});
