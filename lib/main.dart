@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hackathon_isra/view/authentication/login_screen.dart';
-import 'package:hackathon_isra/view/home_screen/home_screen.dart';
+import 'package:hackathon_isra/routes/app_routes.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,6 +10,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: LoginScreen());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: AppRoutes.login,
+      onGenerateRoute: AppRoutes.generateRoute,
+    );
   }
 }

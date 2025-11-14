@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hackathon_isra/constant/colorconstraint.dart';
 import 'package:hackathon_isra/constant/responsiveness.dart';
-import 'package:hackathon_isra/view/authentication/register_screen.dart';
-import 'package:hackathon_isra/view/authentication/reset_password_screen.dart';
-import 'package:hackathon_isra/view/home_screen/home_screen.dart';
+import 'package:hackathon_isra/routes/app_routes.dart';
 import 'package:hackathon_isra/widgets/custom_button.dart';
 import 'package:hackathon_isra/widgets/custom_textfield.dart';
 
@@ -116,10 +114,7 @@ class LoginScreen extends StatelessWidget {
     return CustomButton(
       text: 'Sign In',
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
-        );
+        Navigator.pushReplacementNamed(context, AppRoutes.mainNavigation);
       },
       isOutlined: false,
     );
@@ -131,10 +126,7 @@ class LoginScreen extends StatelessWidget {
       children: [
         TextButton(
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ResetPasswordScreen()),
-            );
+            Navigator.pushNamed(context, AppRoutes.resetPassword);
           },
           child: Text(
             'Forgot Password',
@@ -147,10 +139,7 @@ class LoginScreen extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => RegisterScreen()),
-            );
+            Navigator.pushNamed(context, AppRoutes.register);
           },
           child: Text(
             'Sign Up',

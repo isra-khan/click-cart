@@ -4,7 +4,7 @@ import 'package:hackathon_isra/constant/colorconstraint.dart';
 import 'package:hackathon_isra/constant/responsiveness.dart';
 import 'package:hackathon_isra/models/category_model.dart';
 import 'package:hackathon_isra/models/product_model.dart';
-import 'package:hackathon_isra/view/home_screen/product_detail_page.dart';
+import 'package:hackathon_isra/routes/app_routes.dart';
 import 'package:hackathon_isra/widgets/custom_product_card.dart';
 import 'package:hackathon_isra/widgets/custom_searchbar.dart';
 
@@ -323,12 +323,10 @@ class HomeScreen extends StatelessWidget {
               child: CustomProductCard(
                 product: products[0],
                 onTap: () {
-                  Navigator.push(
+                  Navigator.pushNamed(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          ProductDetailPage(product: products[0]),
-                    ),
+                    AppRoutes.productDetail,
+                    arguments: products[0],
                   );
                 },
               ),
@@ -338,15 +336,10 @@ class HomeScreen extends StatelessWidget {
               child: CustomProductCard(
                 product: products.length > 1 ? products[1] : products[0],
                 onTap: () {
-                  Navigator.push(
+                  Navigator.pushNamed(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => ProductDetailPage(
-                        product: products.length > 1
-                            ? products[1]
-                            : products[0],
-                      ),
-                    ),
+                    AppRoutes.productDetail,
+                    arguments: products.length > 1 ? products[1] : products[0],
                   );
                 },
               ),

@@ -3,7 +3,7 @@ import 'package:hackathon_isra/constant/colorconstraint.dart';
 import 'package:hackathon_isra/constant/responsiveness.dart';
 import 'package:hackathon_isra/models/product_model.dart';
 import 'package:hackathon_isra/models/shop_model.dart';
-import 'package:hackathon_isra/view/home_screen/shop_info_page.dart';
+import 'package:hackathon_isra/routes/app_routes.dart';
 
 class ProductDetailPage extends StatelessWidget {
   final ProductModel product;
@@ -260,14 +260,13 @@ class ProductDetailPage extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Navigator.push(
+        Navigator.pushNamed(
           context,
-          MaterialPageRoute(
-            builder: (context) => ShopInfoPage(
-              shop: shop,
-              products: shopProducts,
-            ),
-          ),
+          AppRoutes.shopInfo,
+          arguments: {
+            'shop': shop,
+            'products': shopProducts,
+          },
         );
       },
       child: Container(

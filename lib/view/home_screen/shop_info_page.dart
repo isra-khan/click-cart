@@ -3,7 +3,7 @@ import 'package:hackathon_isra/constant/colorconstraint.dart';
 import 'package:hackathon_isra/constant/responsiveness.dart';
 import 'package:hackathon_isra/models/product_model.dart';
 import 'package:hackathon_isra/models/shop_model.dart';
-import 'package:hackathon_isra/view/home_screen/product_detail_page.dart';
+import 'package:hackathon_isra/routes/app_routes.dart';
 import 'package:hackathon_isra/widgets/custom_product_card.dart';
 
 class ShopInfoPage extends StatelessWidget {
@@ -301,11 +301,10 @@ class ShopInfoPage extends StatelessWidget {
               return CustomProductCard(
                 product: product,
                 onTap: () {
-                  Navigator.push(
+                  Navigator.pushNamed(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => ProductDetailPage(product: product),
-                    ),
+                    AppRoutes.productDetail,
+                    arguments: product,
                   );
                 },
               );

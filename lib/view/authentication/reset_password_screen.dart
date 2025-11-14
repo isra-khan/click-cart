@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hackathon_isra/constant/colorconstraint.dart';
 import 'package:hackathon_isra/constant/responsiveness.dart';
-import 'package:hackathon_isra/view/authentication/verification_screen.dart';
+import 'package:hackathon_isra/routes/app_routes.dart';
 import 'package:hackathon_isra/widgets/custom_button.dart' show CustomButton;
 import 'package:hackathon_isra/widgets/custom_textfield.dart';
 
@@ -86,10 +86,7 @@ class ResetPasswordScreen extends StatelessWidget {
       isOutlined: false,
       text: 'Reset',
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => VerificationScreen()),
-        );
+        Navigator.pushNamed(context, AppRoutes.verification);
       },
     );
   }

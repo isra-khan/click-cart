@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:hackathon_isra/constant/colorconstraint.dart';
 import 'package:hackathon_isra/constant/responsiveness.dart';
-import 'package:hackathon_isra/view/authentication/update_password_screen.dart';
+import 'package:hackathon_isra/routes/app_routes.dart';
 import 'package:hackathon_isra/widgets/custom_button.dart';
-import 'package:hackathon_isra/widgets/custom_textfield.dart';
-import 'package:flutter/material.dart';
 
 class VerificationScreen extends StatelessWidget {
   const VerificationScreen({super.key});
@@ -121,12 +119,7 @@ class VerificationScreen extends StatelessWidget {
       ),
       onSubmit: (String code) {
         if (code.length == 4) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const UpdatePasswordScreen(),
-            ),
-          );
+          Navigator.pushNamed(context, AppRoutes.updatePassword);
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Please enter 4 digits OTP')),
@@ -140,10 +133,7 @@ class VerificationScreen extends StatelessWidget {
     return CustomButton(
       text: 'Continue',
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const UpdatePasswordScreen()),
-        );
+        Navigator.pushNamed(context, AppRoutes.updatePassword);
       },
       isOutlined: false,
     );
