@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:hackathon_isra/constant/colorconstraint.dart';
 import 'package:hackathon_isra/models/product_model.dart';
-import 'package:flutter/material.dart';
-import 'package:hackathon_isra/constant/colorconstraint.dart';
-import 'package:hackathon_isra/models/product_model.dart';
 
 class CustomProductCard extends StatelessWidget {
   final ProductModel product;
   final VoidCallback? onFavoriteToggle;
+  final VoidCallback? onTap;
 
   const CustomProductCard({
     super.key,
     required this.product,
     this.onFavoriteToggle,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: ColorConstraint.backgroundColor,
-      ),
-      child: Stack(
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: ColorConstraint.backgroundColor,
+        ),
+        child: Stack(
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -196,6 +197,7 @@ class CustomProductCard extends StatelessWidget {
           ),
         ],
       ),
+    ),
     );
   }
 }

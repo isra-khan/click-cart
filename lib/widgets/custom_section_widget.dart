@@ -47,17 +47,42 @@ class SectionWidget extends StatelessWidget {
         const SizedBox(height: 8),
 
         // Product Row (2 items)
-        GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ProductDetailPage()),
-            );
-          },
-          child: CustomProductCard(
-            product: products[0],
-            onFavoriteToggle: onFavoriteToggle,
-          ),
+        Row(
+          children: [
+            Expanded(
+              child: CustomProductCard(
+                product: products[0],
+                onFavoriteToggle: onFavoriteToggle,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          ProductDetailPage(product: products[0]),
+                    ),
+                  );
+                },
+              ),
+            ),
+            if (products.length > 1) ...[
+              SizedBox(width: Responsiveness.width(2)),
+              Expanded(
+                child: CustomProductCard(
+                  product: products[1],
+                  onFavoriteToggle: onFavoriteToggle,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            ProductDetailPage(product: products[1]),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ],
         ),
 
         const SizedBox(height: 16),

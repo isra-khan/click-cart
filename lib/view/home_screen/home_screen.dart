@@ -65,52 +65,82 @@ class HomeScreen extends StatelessWidget {
   // Sample products
   final List<ProductModel> sampleProducts = [
     ProductModel(
+      id: 'p1',
       name: 'TMA-2 HD Wireless',
       brand: '',
       price: 4444.5,
       discount: 0.1,
       imageUrl: 'assets/images/product1.png',
       isFavorite: false,
+      rating: 4.6,
+      reviewCount: 86,
+      stockQuantity: 250,
+      shopId: 's1',
     ),
     ProductModel(
+      id: 'p2',
       name: 'TMA-2 HD Wireless',
       brand: '',
       price: 555.2,
       discount: 0,
       imageUrl: 'assets/images/product2.png',
       isFavorite: true,
+      rating: 4.8,
+      reviewCount: 120,
+      stockQuantity: 150,
+      shopId: 's1',
     ),
     ProductModel(
+      id: 'p3',
       name: 'TMA-2 HD Wireless',
       brand: '',
       price: 455.0,
       discount: 0.2,
       imageUrl: 'assets/images/product2.png',
       isFavorite: false,
+      rating: 4.5,
+      reviewCount: 45,
+      stockQuantity: 80,
+      shopId: 's1',
     ),
     ProductModel(
+      id: 'p4',
       name: 'TMA-2 HD Wireless',
       brand: '',
       price: 454545.0,
       discount: 0,
       imageUrl: 'assets/images/product2.png',
       isFavorite: false,
+      rating: 4.7,
+      reviewCount: 200,
+      stockQuantity: 300,
+      shopId: 's1',
     ),
     ProductModel(
+      id: 'p5',
       name: 'TMA-2 HD Wireless',
       brand: '',
       price: 4555.0,
       discount: 0.05,
       imageUrl: 'assets/images/product2.png',
       isFavorite: true,
+      rating: 4.9,
+      reviewCount: 95,
+      stockQuantity: 180,
+      shopId: 's1',
     ),
     ProductModel(
+      id: 'p6',
       name: 'TMA-2 HD Wireless',
       brand: '',
       price: 4555.0,
       discount: 0,
       imageUrl: 'assets/images/product2.png',
       isFavorite: false,
+      rating: 4.4,
+      reviewCount: 67,
+      stockQuantity: 100,
+      shopId: 's1',
     ),
   ];
 
@@ -287,24 +317,41 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
         SizedBox(height: Responsiveness.height(1)),
-        GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ProductDetailPage()),
-            );
-          },
-          child: Row(
-            children: [
-              Expanded(child: CustomProductCard(product: products[0])),
-              SizedBox(width: Responsiveness.width(2)),
-              Expanded(
-                child: CustomProductCard(
-                  product: products.length > 1 ? products[1] : products[0],
-                ),
+        Row(
+          children: [
+            Expanded(
+              child: CustomProductCard(
+                product: products[0],
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          ProductDetailPage(product: products[0]),
+                    ),
+                  );
+                },
               ),
-            ],
-          ),
+            ),
+            SizedBox(width: Responsiveness.width(2)),
+            Expanded(
+              child: CustomProductCard(
+                product: products.length > 1 ? products[1] : products[0],
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProductDetailPage(
+                        product: products.length > 1
+                            ? products[1]
+                            : products[0],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
         ),
         SizedBox(height: Responsiveness.height(2)),
       ],
